@@ -151,6 +151,27 @@ class _ConversationsState extends State<Conversations> {
                   const Icon(Icons.edit),
                 ],
               ),
+               const SizedBox(height: 15),
+              Container(
+                width: double.infinity,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFe9eaec),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  cursorColor: const Color(0xFF000000),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: const Color(0xFF000000).withOpacity(0.5),
+                    ),
+                    hintText: "Search",
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
