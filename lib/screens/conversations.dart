@@ -244,6 +244,117 @@ class _ConversationsState extends State<Conversations> {
     );
   }
 
+  Widget _conversations(BuildContext context) {
+    return Column(
+      children: List.generate(conversationList.length, (index) {
+        final convo = conversationList[index];
+
+        return InkWell(
+          onTap: () {
+            // later you can navigate to a chat screen
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Stack(
+                    children: <Widget>[
+                      convo['hasStory'] == true
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.blueAccent,
+                                  width: 3,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        convo['imageUrl'],
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    convo['imageUrl'],
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                      convo['isOnline'] == true
+                          ? Positioned(
+                              top: 38,
+                              left: 42,
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF66BB6A),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(0xFFFFFFFF),
+                                    width: 3,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      convo['name'],
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 135,
+                      child: Text(
+                        "${convo['message']} - ${convo['time']}",
+                        style: TextStyle(
+                          fontSize: 15,
+              
+                          color: const Color(0xFF000000).withValues(alpha: 0.7),
+
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -303,6 +414,9 @@ class _ConversationsState extends State<Conversations> {
               ),
               const SizedBox(height: 20),
               _stories(),
+              const SizedBox(height: 20),
+              _conversations(context),
+
             ],
           ),
         ),
